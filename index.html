@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Foundry Agent</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    h2 { color: #333; }
+    textarea { width: 100%; height: 80px; }
+    button { margin-top: 10px; padding: 10px 20px; }
+    #reply { margin-top: 20px; padding: 10px; background: #f0f0f0; }
+  </style>
+</head>
+<body>
+  <h2>Chat with My Foundry Agent</h2>
+  <textarea id="msg" placeholder="Type your message here..."></textarea><br>
+  <button onclick="send()">Send</button>
+  <div id="reply"></div>
+
+<script>
+async function send() {
+  const message = document.getElementById("msg").value;
+  document.getElementById("reply").innerText = "Waiting for response...";
+
+  try {
+    const res = await fetch("https://<your-app-service>.azurewebsites.net/api/chat", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({message})
+    });
+    const data = await res.json();
+    document.getElementById("reply").innerText = data.reply;
+  } catch (err) {
+    document.getElementById("reply").innerText = "Error: " + err;
+  }
+}
+</script>
+</body>
+</html>
