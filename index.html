@@ -23,7 +23,7 @@ async function send() {
   document.getElementById("reply").innerText = "Waiting for response...";
 
   try {
-    const res = await fetch("https://fuad-agent-wrapper-c9bnbgg6cvbad6b7.centralus-01.azurewebsites.net/api/chat", {
+    const res = await fetch("https://fuad-agent-wrapper-c9bnbgg6cvbad6b7.centralus-01.azurewebsites.net", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({message})
